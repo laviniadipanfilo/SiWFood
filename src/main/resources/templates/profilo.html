@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Account</title>
+	<link rel="stylesheet" href="/css/stile.css">
+  </head>
+  <body>
+	<div class="sfondo">
+		<div class="content">
+		    <div th:if="${user}">
+				
+				<h1 class="titolo">Il tuo account</h1><br>
+
+				<div th:if="${user.name}">Nome: <span th:text="${user.name}"></span></div>
+				<div th:if="${user.surname}">Cognome: <span th:text="${user.surname}"></span></div>
+				<div th:if="${user.email}">Email: <span th:text="${user.email}"></span></div>
+
+				<br>
+				
+				<button type="button"><a class="bottone" href="/">Homepage</a></button><br>
+				<button type="button"><a class="bottone" href="/logout">Logout</a></button>
+
+			</div>
+			<div th:unless="${user}">Non esiste
+			</div>
+	
+		</div>
+		
+	</div>
+	
+  </body>
+</html>

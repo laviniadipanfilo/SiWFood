@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ricette con ingrediente</title>
+	<link rel="stylesheet" href="/css/stile.css">
+</head>
+<body>
+	<div class="sfondo">
+		<div class="content">
+		    <h3 class="titoloSemplice">Ricette con <span th:text="${ingrediente.nome}"></span></h3>
+		    <ul>
+		        <li th:each="ricetta : ${ricetteConIngrediente}">
+		            <a th:href="@{'/ricetta/' + ${ricetta.id}}" th:text="${ricetta.nome}"></a>
+					<div th:if="${ricetta.bytes}">
+	   					<div>
+	   						<img th:src="@{'data:image/jpeg; base64,' + ${ricetta.generateBase64Image()}}" class="foto" width="10%">
+	   					</div>
+		   			  </div>		        
+				</li>
+		    </ul>
+			<button type="button"><a class="bottone" href="/">Homepage</a></button><br>
+		</div>
+	</div>
+</body>
+</html>

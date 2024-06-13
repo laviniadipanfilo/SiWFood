@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ricetta</title>
+    <link rel="stylesheet" href="/css/stile.css">
+</head>
+<body>
+    <div class="sfondo">
+        <div class="content">
+            <div th:if="${ricetta}">
+                <h1><span th:text="${ricetta.nome}" class="titolo"></span></h1>
+                <br>
+				<div class="button-container">
+                    <button type="button"><a class="bottone" href="/ricette">Torna alle ricette</a></button>
+                    <button type="button"><a class="bottone" href="/">Homepage</a></button>
+                </div>
+                <div>
+                    <span th:text="${messaggioErrore}">Errore</span>
+                </div>
+
+                <div th:if="${ricetta.bytes}">
+                    <img th:src="@{'data:image/jpeg;base64,' + ${ricetta.generateBase64Image()}}" class="foto fotoRicetta" width="30%">
+                </div>
+					
+				<div class="ricettaContainer">
+                    <div>
+                        <br>
+						<div class="ingredientiContainer">
+	                        <div th:if="${ricetta.ingredienti}">
+	                            <div th:if="${#lists.size(ricetta.ingredienti) > 0}">
+	                                <div class="titoloPiccolo2">Ingredienti</div>
+	                                <ul class="ingredienteLista">
+	                                    <li th:each="ingrediente : ${ricetta.ingredienti}">
+	                                        <div th:if="${ingrediente.quantita == null}">
+	                                            <a th:href="@{'/ingrediente/' + ${ingrediente.id}}" th:text="${ingrediente.nome}"></a>
+	                                        </div>
+	                                        <div th:if="${ingrediente.quantita != null}">
+	                                            <a th:href="@{'/ingrediente/' + ${ingrediente.id}}" th:text="${ingrediente.nome} + ' ' + '(' + ${ingrediente.quantita} + ' ' + ${ingrediente.unitaMisura} + ')' "></a>
+	                                        </div>
+	                                    </li>
+	                                </ul>
+	                            </div>
+	                        </div>
+						</div>
+						<br>
+						<div class="titoloPiccolo2 descrizioneContainer">Descrizione</div>
+                        <div class="descrizione">
+                            <span th:text="${ricetta.descrizione}"></span>
+                        </div>
+                    </div>
+                </div>
+				
+				<div th:if="${ricetta.cuoco}">
+                   <span>Cuoco: 
+                       <a class="cuoco" th:href="@{'/cuoco/' + ${ricetta.cuoco.id}}"
+                           th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}"></a>
+                   <div th:if="${ricetta.cuoco.bytes}">
+                       <img th:src="@{'data:image/jpeg;base64,' + ${ricetta.cuoco.generateBase64Image()}}" class="foto" width="10%">
+                   </div>
+                   <div th:unless="${ricetta.cuoco.bytes}">
+                       <span><img class="foto" width="5%" src="/images/noFotoCuoco.png" /></span><br>
+                   </div>
+				   </span>
+           		</div>
+				
+				<div th:if="${ricetta.images != null}">
+                    <div th:if="${#lists.size(ricetta.images) > 0}">
+                        <div class="titoloPiccolo2">Altre immagini</div>
+                        <ul>
+                            <li class="immaginiRicetta" th:each="i : ${ricetta.images}">
+                                <div th:if="${i.bytes}">
+                                    <a th:href="@{'/immagine/' + ${ricetta.id} + '/' + ${i.id}}">
+                                        <img th:src="@{'data:image/jpeg;base64,' + ${i.generateBase64Image()}}" class="foto" width="80%">
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+				
+            </div>
+            <div th:unless="${ricetta}">Non esiste</div>
+        </div>
+    </div>
+</body>
+</html>

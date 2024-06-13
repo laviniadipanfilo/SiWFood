@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Aggiungi Cuoco</title>
+	<link rel="stylesheet" href="/css/stile.css">
+  </head>
+  <body>
+
+	<div class="sfondo">
+
+		<div class="content">
+
+			<h1><span th:text="${ricetta.nome}" class="titolo"></span></h1><br>
+			
+			<div th:if="${ricetta.bytes}">
+				<div>
+					<img th:src="@{'data:image/jpeg; base64,' + ${ricetta.generateBase64Image()}}" class="foto" width="20%">
+				</div>
+			</div>
+			
+		    <form th:action="@{/ricetta}" method="POST" th:object="${cuoco}">
+		      <div>
+		        <span th:text="${messaggioErrore}">Errore</span>
+		      </div>
+			  <div th:if="${ricetta}">
+			 		  <div th:if="${ricetta.cuoco}">
+						<span>Cuoco: <span> <a class="cuoco" th:href="@{'/cuoco/' + ${ricetta.cuoco.id}}"
+										   	   th:text="${ricetta.cuoco.nome} + ' ' + ${ricetta.cuoco.cognome}"></a></span><br></br>
+						<button type="button"><a class="bottone" th:href="@{'/aggiungiCuoco' + '/' + ${ricetta.id}}">Modifica cuoco</a></button>
+					  </div>
+					  <div th:unless="${ricetta.cuoco}">
+						<button type="button"><a class="bottone" th:href="@{'/aggiungiCuoco' + '/' + ${ricetta.id}}">Aggiungi cuoco</a></button>
+					  </div>
+					  <button type="button"><a class="bottone" th:href="@{'/setImages' + '/' + ${ricetta.id}}">Aggiungi foto</a></button><br>
+					  <button type="button"><a class="bottone" href="/">Homepage</a></button><br>
+					  <button type="button"><a class="bottone" th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Torna alla ricetta</a></button>
+
+			  </div>
+		
+		    </form>
+	
+		</div>
+	
+	</div>
+	
+  </body>
+</html>

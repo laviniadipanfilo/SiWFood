@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cuoco</title>
+	<link rel="stylesheet" href="/css/stile.css">
+  </head>
+  <body>
+	<div class="sfondo">
+		<div class="content">
+		    <div th:if="${cuoco}">
+				<h1><span th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}" class="titolo"></span></h1><br>
+				<div th:if="${cuoco.bytes}">
+					<div>
+						<img th:src="@{'data:image/jpeg; base64,' + ${cuoco.generateBase64Image()}}" class="foto" width="20%">
+					</div>
+				</div>
+				<div th:unless="${cuoco.bytes}">
+					<p>
+						Aggiungi foto<br>
+						<button type="button"><a class="bottone" th:href="@{'/imageCuoco' + '/' + ${cuoco.id}}">Aggiungi foto</a></button>
+					</p>
+				</div>
+				
+				<div th:if="${cuoco.nascita}">Data di nascita: <span th:text="${cuoco.nascita}"></span></div><br>
+
+				<div th:if="${cuoco.ricette}">
+				<ul>
+				 <div th:if="${#lists.size(cuoco.ricette) > 0}">
+					<div>Ricette di <a class="cuoco" th:href="@{'/cuoco/' + ${cuoco.id}}"
+										th:text="${cuoco.nome}"></a></div>
+				    	<li th:each="ricetta : ${cuoco.ricette}">
+							<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}"
+						       th:text="${ricetta.nome}"></a>
+							   <div th:if="${ricetta.bytes}">
+				   					<div>
+				   						<img th:src="@{'data:image/jpeg; base64,' + ${ricetta.generateBase64Image()}}" class="foto" width="5%">
+				   					</div>
+				   				</div>
+						</li>
+				 </div>
+				</ul>
+
+				<br>
+				
+				<button type="button"><a class="bottone" href="/">Homepage</a></button><br>
+				<button type="button"><a class="bottone" href="/cuochi">Torna ai cuochi</a></button>
+
+			</div>
+			<div th:unless="${cuoco}">Non esiste
+			</div>
+	
+		</div>
+		
+	</div>
+	
+  </body>
+</html>

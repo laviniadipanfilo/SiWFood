@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cuochi</title>
+    <link rel="stylesheet" href="/css/stile.css">
+  </head>
+  <body>
+	
+	<div class="sfondo">
+
+		<div class="content">
+	
+			<img src="/images/cuochiLogo.png" width="20%"><br><br>
+			<button type="button"><a class="bottone" href="/cercaCuoco">Cerca</a></button><br>
+			<button type="button"><a class="bottone" href="/">Homepage</a></button><br><br>
+
+		    <div th:if="${cuochi.isEmpty()}">Non ci sono cuochi nel sistema</div>
+		    <ul>
+		      <li th:each="cuoco : ${cuochi}">
+		        <a th:href="@{'/cuoco' + '/' + ${cuoco.id}}"
+		           th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"></a>
+				   <div th:if="${cuoco.bytes}">
+						<div>
+							<img th:src="@{'data:image/jpeg; base64,' + ${cuoco.generateBase64Image()}}" class="foto" width="20%">
+						</div>
+					</div>
+					<div th:unless="${cuoco.bytes}">
+						<span><img class="foto" width="10%" src="/images/noFotoCuoco.png" /></span><br>
+				   </div>
+				   <div>
+	   				    <form th:action="@{'/cancellaCuoco/' + ${cuoco.id}}" method="post">
+	   				        <input type="hidden" name="_method" value="delete" />
+	   				        <button type="submit" class="bottone">Elimina</button><br>
+	   				    </form>
+				   </div><br><br>     
+			  </li>
+		    </ul>
+			<br>
+			<p>Altrimenti, aggiungine uno<p>
+			<button type="button"><a class="bottone" href="/formNuovoCuoco">Aggiungi cuoco</a></button>
+
+		</div>
+	
+	</div>
+	
+  </body>
+</html>

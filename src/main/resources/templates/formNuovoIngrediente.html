@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nuovo ingrediente</title>
+    <link rel="stylesheet" href="/css/stile.css">
+</head>
+<body>
+    <div class="sfondo">
+        <div class="content">
+			<img src="/images/aggiungiUnIngredienteLogo.png" width="40%"><br><br>
+            <form th:action="@{'/ingrediente/' + ${ricetta.id}}" method="POST" th:object="${ingrediente}">
+                <div>
+                    <span th:text="${messaggioErrore}">Errore</span>
+                </div>
+				<div th:if="${ingredienti.isEmpty()}">Non ci sono ingredienti nel sistema</div>
+				
+                <div>
+                    Nome: 
+                    <span>
+                        <input required type="text" list="ingredienti" th:field="${ingrediente.nome}" />
+                        <datalist id="ingredienti">
+                            <th:block th:each="ingrediente : ${ingredienti}">
+                                <option th:value="${ingrediente.nome}"></option>
+                            </th:block>
+                        </datalist>
+                    </span>
+                </div><br>
+				<div>
+                    <span th:text="${messaggioErrore}">Errore</span>
+                </div>
+                <div>
+                    Quantità: <span><input required type="number" th:field="${ingrediente.quantita}" /></span>
+                </div>
+				<div>
+				    Unità di misura (g, ml, l...) <span><input required type="text" th:field="${ingrediente.unitaMisura}" /></span>
+				</div>
+                <div>
+                    <span><button type="submit">Conferma</button></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ingrediente</title>
+    <link rel="stylesheet" href="/css/stile.css">
+</head>
+<body>
+	<div class="sfondo">
+   	  <div class="content">
+        <div th:if="${ingrediente}">
+            <h1><span th:text="${ingrediente.nome}" class="titolo"></span></h1>
+
+            <button type="button"><a class="bottone" witdh="70%" th:href="@{'/ricette' + '/ingrediente/' + ${ingrediente.id}}">ricette con <span th:text="${ingrediente.nome}"></span></a></button><br>
+			
+            <button type="button"><a class="bottone" href="/">Homepage</a></button><br>
+        </div>
+        <div th:unless="${ingrediente}">Non esiste</div>
+    	</div>
+	</div>
+</body>
+</html>

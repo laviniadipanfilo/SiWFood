@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>
+		Registrazione
+	</title>
+	<link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+	<div class="sfondo">
+		<div class="content">
+			<img src="/images/registerLogo.png" width="15%"><br><br>
+		<form th:action="@{/registerCuoco}" method="POST" th:object="${cuoco}" enctype="multipart/form-data">
+			<div>
+				<label class="scritta">Nome</label>
+				<span><input class="scritta" type="text" placeholder="nome" required th:field="${cuoco.nome}" /></span>
+				</span>
+			</div>
+			<div>
+				<label class="scritta">Cognome</label>
+				<span><input class="scritta" type="text" placeholder="cognome" required th:field="${cuoco.cognome}" /></span>
+				</span>
+			</div>
+			<div>
+				<label class="scritta">Email</label>
+				<span><input class="scritta" type="text" placeholder="email" required th:field="${cuoco.email}" /></span>
+				</span>
+			</div>
+			<div>
+		      <label>Nascita:</label>
+		      <span><input type="date" th:field="${cuoco.nascita}" rows="4" cols="50"></span>
+		  </div>
+			<div>
+				<label class="scritta">Username</label>
+				<span>
+				<input class="scritta" type="text" placeholder="username" required th:field="${credentials.username}" />
+				</span>
+				</span>
+			</div>
+			<div>
+				<label class="scritta">Password</label>
+				<span><input class="scritta" type="password" placeholder="password" required th:field="${credentials.password}" />
+				</span>
+				</span>
+			</div>
+			<div>
+                <label>Foto:</label>
+                <span><input name="file" type="file" accept="image/png, image/jpeg" placeholder="file" required /></span>
+            </div><br>
+			<div>
+				<button type="submit">REGISTER</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

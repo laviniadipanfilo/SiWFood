@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cerca cuoco</title>
+	<link rel="stylesheet" href="/css/stile.css">
+  </head>
+  <body>
+	<div class="sfondo">
+		<div class="content">
+		    <h1>Cerca il cuoco dal nome</h1>
+		    <form th:action="@{/cercaCuoco}" method="POST" th:object="${cuoco}">
+		      <div>
+		        <span th:text="${messaggioErrore}">Errore</span>
+		      </div>
+		      <div>
+		        Nome: <span><input required type="text" th:field="${cuoco.nome}"/></span>
+		      </div>
+		      <div>
+		        <span><button type="submit">Conferma</button></span>
+		      </div>
+			  <button type="button"><a class="bottone" href="/">Homepage</a></button>
+			  <div th:unless="${cuoco}">Non esiste</div>
+		    </form>
+		</div>
+	</div>
+  </body>
+</html>

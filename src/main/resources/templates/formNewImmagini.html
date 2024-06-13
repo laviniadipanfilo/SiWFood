@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Foto</title>
+    <link rel="stylesheet" href="/css/stile.css">
+</head>
+<body>
+    <div class="sfondo">
+        <div class="content">
+            <form th:action="@{'/setImages/' + ${ricetta.id}}" method="POST" th:object="${ricetta}" enctype="multipart/form-data">
+
+                <div>
+                    <span th:text="${messaggioErrore}">Errore</span>
+                </div>
+
+				<div>
+                    <label>Aggiungi una foto: </label>
+                    <span><input name="file" type="file" accept="image/png, image/jpeg" placeholder="file" required /></span>
+                </div><br>
+
+                <div>
+                    <span class="bottone"><button type="submit">Conferma</button></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

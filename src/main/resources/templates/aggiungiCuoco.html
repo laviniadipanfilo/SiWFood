@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Cuochi</title>
+    <link rel="stylesheet" href="/css/stile.css">
+  </head>
+  <body>
+	
+	<div class="sfondo">
+
+		<div class="content">
+	
+			<h1><span class="titolo">Cuochi</span></h1>
+		    <div th:if="${cuochi.isEmpty()}">Non ci sono cuochi nel sistema</div>
+		    <ul>
+				<li th:each="cuoco : ${cuochi}">
+				<a th:text="${cuoco.nome} + ' ' + ${cuoco.cognome}"
+				   th:href="@{'/setCuoco/' + ${cuoco.id} + '/' + ${ricetta.id}}">Aggiungi</a>
+				   <div th:if="${cuoco.bytes}">
+						<div>
+							<img th:src="@{'data:image/jpeg; base64,' + ${cuoco.generateBase64Image()}}" class="foto" width="20%">
+						</div>
+					</div>
+					<div th:unless="${cuoco.bytes}">
+						<span><img class="foto" width="10%" src="/images/noFotoCuoco.png" /></span><br>
+					</div>
+		      </li>
+		    </ul>
+
+		</div>
+		
+	</div>
+	
+  </body>
+</html>

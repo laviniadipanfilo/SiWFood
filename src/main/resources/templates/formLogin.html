@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/stile.css" />
+</head>
+
+<body>
+
+    <div class="sfondo">
+
+        <div class="content">
+			<img src="/images/loginLogo.png" width="15%"><br><br>
+            <form th:action="@{/login}" method="POST">
+                <div>
+                    <span class="scritta">Username: </span>
+                    <span><input class="scritta" name="username" type="text" required /></span>
+                </div><br>
+                <div>
+                    <span class="scritta">Password: </span>
+                    <span><input class="scritta" name="password" type="password" required /></span>
+                </div><br>
+                <div>
+					<span class="scritta" th:if="${param.error != null}">Username o password errati</span>
+                </div>
+                <div class="button-container">
+                    <button type="submit">LOGIN</button><br>
+                </div><br><br>
+				
+				<p>Se non hai un account registrati!</p>
+				
+				<button type="button"><a class="bottone" href="/registerScelta">Register</a></button>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

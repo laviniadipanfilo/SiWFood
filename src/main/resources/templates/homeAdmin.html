@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>SiWFood</title>
+	<link rel="stylesheet" href="/css/stile.css">
+  </head>
+  <divebody>
+	<div class="sfondo">
+		<div class="contenitore">
+		       <div class="elemento">
+				<a class="bottone" href="/profiloCuoco">Account</a>
+			   </div>
+		</div>
+		<div class="content">
+			<img src="/images/siwfoodLogo.png" width="35%">
+			<div th:if="${userDetails}"> 
+				<p>Benvenuto/a <span th:text="${userDetails.username}"></span>!</p>
+			</div>
+				<div class="button-container">
+					<div th:if="${userDetails}"> 
+						<button type="button"><a class="bottone" href="/logout">Logout</a></button>
+					</div>
+					<div th:unless="${userDetails}">
+						<button type="button"><a class="bottone" href="/login">Login</a></button>
+					</div>
+					<button type="button"><a class="bottone" href="/ricette">Ricette</a></button>
+					<button type="button"><a class="bottone" href="/formNuovaRicetta">Aggiungi una ricetta</a></button>
+					<button type="button"><a class="bottone" href="/cuochi">Cuochi</a></button>
+					<button type="button"><a class="bottone" href="/formNuovoCuoco">Gestisci cuochi</a></button>
+
+				</div>
+				
+			
+
+		</div>
+	</div>
+  </body>
+</html>

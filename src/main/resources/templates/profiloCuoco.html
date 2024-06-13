@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Account</title>
+	<link rel="stylesheet" href="/css/stile.css">
+  </head>
+  <body>
+	<div class="sfondo">
+		<div class="content">
+		    <div th:if="${cuoco}">
+				
+				<h1 class="titolo">Il tuo account</h1><br>
+				<div class="bottoni">
+					<button type="button"><a class="bottone" href="/">Homepage</a></button>
+					<button type="button"><a class="bottone" href="/cuochi">Torna ai cuochi</a></button>
+					<button type="button"><a class="bottone" href="/logout">Logout</a></button>
+				</div>
+				<div class="fotoProfilo" th:if="${cuoco.bytes}">
+					<div>
+						<img th:src="@{'data:image/jpeg; base64,' + ${cuoco.generateBase64Image()}}" class="foto" width="80%">
+					</div>
+				</div>
+				<div th:unless="${cuoco.bytes}">
+					<span><img class="foto" width="10%" src="/images/noFotoCuoco.png" /></span><br>
+				</div>
+				
+				<div class="infoProfilo">
+				
+					<div th:if="${cuoco.nome}">Nome: <span th:text="${cuoco.nome}"></span></div>
+					<div th:if="${cuoco.cognome}">Cognome: <span th:text="${cuoco.cognome}"></span></div>
+					<div th:if="${cuoco.email}">Email: <span th:text="${cuoco.email}"></span></div>
+					<div th:if="${cuoco.nascita}">Data di nascita: <span th:text="${cuoco.nascita}"></span></div><br>
+				
+						<div th:if="${cuoco.ricette}">
+							<ul>
+							 <div th:if="${#lists.size(cuoco.ricette) > 0}">
+								<div>Le tue ricette <a class="cuoco" th:href="@{'/cuoco/' + ${cuoco.id}}"
+													th:text="${cuoco.nome}"></a></div>
+							    	<li th:each="ricetta : ${cuoco.ricette}">
+										<a th:href="@{'/ricetta' + '/' + ${ricetta.id}}"
+									       th:text="${ricetta.nome}"></a>
+										   <div th:if="${ricetta.bytes}">
+							   					<div>
+							   						<img th:src="@{'data:image/jpeg; base64,' + ${ricetta.generateBase64Image()}}" class="foto" width="15%">
+							   					</div>
+							   				</div>
+									</li>
+									<button type="button"><a class="bottone" href="/formNuovaRicetta">Aggiungi una ricetta</a></button>
+							 </div>
+							 <div th:if="${#lists.size(cuoco.ricette) == 0}"> Ancora non hai postato<br>nessuna ricetta, che aspetti! <br>
+								<button type="button"><a class="bottone" href="/formNuovaRicetta">Aggiungi una ricetta</a></button>
+							 </div>
+							</ul>
+
+							<br>
+							</div>
+					</div>
+					
+			</div>
+			<div th:unless="${cuoco}">Non esiste
+			</div>
+	
+		</div>
+		
+	</div>
+	
+  </body>
+</html>

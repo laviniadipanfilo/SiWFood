@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="/css/stile.css">
+  </head>
+  <body>
+	<div class="sfondo">
+		<div class="content">
+			<h2 class="titolo">Ingredienti</h2>
+		    <div th:if="${ingredienti.isEmpty()}">Non ci sono ingredienti nel sistema</div>
+			
+			
+			
+		    <ul>
+		      <li th:each="ingrediente : ${ingredienti}">
+		        <a th:href="@{'/ingrediente' + '/' + ${ingrediente.id}}"
+				   th:text="${ingrediente.nome}"></a>
+		      </li>
+		    </ul>
+			
+			
+			<button type="button"><a class="bottone" href="/">Homepage</a></button><br>
+
+		</div>
+	</div>
+  </body>
+</html>

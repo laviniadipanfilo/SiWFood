@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nuova ricetta</title>
+    <link rel="stylesheet" href="css/stile.css">
+</head>
+<body>
+    <div class="sfondo">
+        <div class="content">
+            <img src="/images/aggiungiUnaRicettaLogo.png" width="40%"><br><br>
+            <form th:action="@{/ricetta}" method="POST" th:object="${ricetta}" enctype="multipart/form-data">
+
+                <div>
+                    <span th:text="${messaggioErrore}">Errore</span>
+                </div>
+
+                <div>
+                    <label>Nome ricetta:</label>
+                    <span><input type="text" th:field="${ricetta.nome}" required/></span>
+                </div><br>
+
+                <div>
+                    <label>Descrizione:</label>
+                    <span><textarea th:field="${ricetta.descrizione}" rows="4" cols="50" required></textarea></span>
+                </div><br>
+				
+				<div>
+                    <label>Foto ricetta:</label>
+                    <span><input name="file" type="file" accept="image/png, image/jpeg" placeholder="file" required /></span>
+                </div><br>
+
+                <div>
+                    <span class="bottone"><button type="submit">Conferma</button></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ricetta</title>
+	<link rel="stylesheet" href="/css/stile.css">
+  </head>
+  <body>
+	<div class="sfondo">
+		<div class="content">
+		    <div th:if="${ricetta}">
+				<h2><span th:text="${ricetta.nome}" class="titolo"></span></h2><br>
+
+			<div>
+			    <form th:action="@{'/cancellaFoto' + '/' + ${ricetta.id} + '/' + ${image.id}}" method="post">
+			        <input type="hidden" name="_method" value="delete" />
+					<div>
+						<img th:src="@{'data:image/jpeg; base64,' + ${image.generateBase64Image()}}" class="foto" width="20%">
+					</div><br>
+			        <button type="submit" class="bottone">Elimina</button><br>
+					<button type="button"><a class="bottone" th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Torna alla ricetta</a></button><br>
+				    <button type="button"><a class="bottone" href="/">Homepage</a></button>
+			    </form>
+			</div>
+			
+			<div th:unless="${ricetta}">Non esiste</div>
+	
+		</div>
+	
+	</div>
+	
+  </body>
+</html>

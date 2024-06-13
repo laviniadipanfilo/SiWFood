@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nuovo Cuoco</title>
+	<link rel="stylesheet" href="css/stile.css">
+  </head>
+  <body>
+	
+	<div class="sfondo">
+
+		<div class="content">
+
+			<h1 class="titolo">Aggiungi un cuoco</h1><br>
+		    <form th:action="@{/cuoco}" method="POST" th:object="${cuoco}">
+				
+		      <div>
+		        <span th:text="${messaggioErrore}">Errore</span>
+		      </div>
+			  
+		      <div>
+				<label>Nome:</label>
+		        <span><input type="text" th:field="${cuoco.nome}"/></span>
+		      </div><br>
+			  
+			  <div>
+			  	<label>Cognome:</label>
+			  	<span><input type="text" th:field="${cuoco.cognome}"/></span>
+			  </div><br>
+			  
+			  <div>
+			      <label>Nascita:</label>
+			      <span><input type="date" th:field="${cuoco.nascita}" rows="4" cols="50"></span>
+			  </div>
+
+		      <div>
+		        <span class="bottone"><button type="submit">Conferma</button></span>
+		      </div>
+		    </form>
+
+			<button type="button"><a class="bottone" href="/cancellaCuochi">Cancella cuochi</a></button>
+			
+		</div>
+		
+	</div>
+	
+  </body>
+</html>

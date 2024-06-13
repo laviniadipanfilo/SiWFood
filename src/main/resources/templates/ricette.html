@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ricette</title>
+    <link rel="stylesheet" href="/css/stile.css">
+  </head>
+  <body>
+	<div class="sfondo">
+		<div class="content">
+			<img src="/images/ricetteLogo.png" width="20%"><br><br>
+			<button type="button"><a class="bottone" href="/cercaRicetta">Cerca</a></button><br>
+
+			   <div th:if="${ricette.isEmpty()}">Non ci sono ricette nel sistema</div>
+			   <div th:if="${!ricette.isEmpty()}">
+				   <ul>
+					    <li th:each="ricetta : ${ricette}">
+						   <a th:text="${ricetta.nome}"
+							  th:href="@{'/ricetta' + '/' + ${ricetta.id}}">Aggiungi</a>
+							  <div th:if="${ricetta.bytes}">
+			   					<div>
+			   						<img th:src="@{'data:image/jpeg; base64,' + ${ricetta.generateBase64Image()}}" class="foto" width="15%">
+			   					</div>
+				   			  </div>
+							  <br><br>
+					    </li>
+				   </ul>
+				   <button type="button"><a class="bottone" href="/">Homepage</a></button><br><br>
+			   </div>
+		</div>
+	</div>
+  </body>
+</html>
