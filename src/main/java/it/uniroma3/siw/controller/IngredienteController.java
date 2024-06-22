@@ -161,7 +161,7 @@ public class IngredienteController {
 	    model.addAttribute("ricette", ricettaRepository.findAll());
 	    model.addAttribute("ingredienti", ingredienteRepository.findAll());
 
-	    return "ricette.html";
+	    return "redirect:/ricetta/"+idRicetta;
 	}
 
 }

@@ -77,12 +77,12 @@ public class RicettaController {
 	    return "aggiungiCuoco.html";
 	}
 
-	@GetMapping("/aggiungiIngrediente/{idRicetta}")
-	public String showIngredienti(@PathVariable("idRicetta") Long idRicetta, Model model) {
-		model.addAttribute("ingredienti", this.ingredienteService.findAll());
-		model.addAttribute("ricetta", ricettaRepository.findById(idRicetta).get());
-	    return "aggiungiIngrediente.html";
-	}
+//	@GetMapping("/aggiungiIngrediente/{idRicetta}")
+//	public String showIngredienti(@PathVariable("idRicetta") Long idRicetta, Model model) {
+//		model.addAttribute("ingredienti", this.ingredienteService.findAll());
+//		model.addAttribute("ricetta", ricettaRepository.findById(idRicetta).get());
+//	    return "aggiungiIngrediente.html";
+//	}
 	
 	@GetMapping("/modificaRicetta/{idRicetta}")
 	public String formModificaRicetta(@PathVariable("idRicetta") Long idRicetta, Model model) {
@@ -103,19 +103,19 @@ public class RicettaController {
 		}
 	}
 
-	@PostMapping("/aggiungiIngrediente/{idRicetta}")
-	public String setIngrediente(@PathVariable("idRicetta") Long idRicetta, @ModelAttribute("ricetta") Ricetta ricetta, Model model) {
-		System.out.println("-----------------------------------------------------------------");
-		for(Ingrediente i: ricetta.getIngredienti()) {
-				if (!ingredienteRepository.existsByNome(i.getNome())) {
-				System.out.println("--------------------------------------------------------------");
-				this.cuocoService.save(ricetta.getCuoco());    
-				return "redirect:modificaRicetta/"+ricetta.getId();
-			}
-		}
-		model.addAttribute("messaggioErrore", "Questo ingrediente c'è già");
-		return "errore.html";
-	}
+//	@PostMapping("/aggiungiIngrediente/{idRicetta}")
+//	public String setIngrediente(@PathVariable("idRicetta") Long idRicetta, @ModelAttribute("ricetta") Ricetta ricetta, Model model) {
+//		System.out.println("-----------------------------------------------------------------");
+//		for(Ingrediente i: ricetta.getIngredienti()) {
+//				if (!ingredienteRepository.existsByNome(i.getNome())) {
+//				System.out.println("--------------------------------------------------------------");
+//				this.cuocoService.save(ricetta.getCuoco());    
+//				return "redirect:modificaRicetta/"+ricetta.getId();
+//			}
+//		}
+//		model.addAttribute("messaggioErrore", "Questo ingrediente c'è già");
+//		return "errore.html";
+//	}
 
 	@GetMapping("/setCuoco/{idCuoco}/{idRicetta}")
 	public String formCuoco(@PathVariable("idCuoco") Long idCuoco, @PathVariable("idRicetta") Long idRicetta, Model model) {

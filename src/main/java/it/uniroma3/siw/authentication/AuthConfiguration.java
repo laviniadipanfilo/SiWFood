@@ -12,9 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static it.uniroma3.siw.model.Credentials.ADMIN_ROLE;
+import static it.uniroma3.siw.model.Credentials.CUOCO_ROLE;
 
 import javax.sql.DataSource;
 
@@ -51,11 +53,12 @@ import javax.sql.DataSource;
                 .authorizeHttpRequests()
 
                 .requestMatchers(HttpMethod.GET,"/","/index","/registerCuoco", "/registerScelta" ,"/register","/css/**", "/images/**", "favicon.ico").permitAll()
-
                 .requestMatchers(HttpMethod.POST,"/registerCuoco", "/registerScelta", "/register", "/login").permitAll()
-                .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
-                .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority(ADMIN_ROLE)
-
+                .requestMatchers(HttpMethod.GET, "/cancellaCuochi", "/imageCuoco/*", "/formNuovoCuoco").hasAnyAuthority(ADMIN_ROLE)
+                .requestMatchers(HttpMethod.POST, "/cancellaCuoco/*", "/imageCuoco/*", "/cuoco").hasAnyAuthority(ADMIN_ROLE)
+                .requestMatchers(HttpMethod.GET, "/aggiungiCuoco/*", "/modificaRicetta/*", "/formNuovoIngrediente/*", "/immagine/**", "/setImages/*", "/formNuovaRicetta", "/setIngrediente/**", "/setCuoco/**").hasAnyAuthority(ADMIN_ROLE, CUOCO_ROLE)
+                .requestMatchers(HttpMethod.POST, "/modificaRicetta/*", "/ingrediente/*", "/cancellaIngrediente/**", "/ricetta", "/setImages/*", "/cancellaRicetta/*", "/cancellaFoto/**").hasAnyAuthority(ADMIN_ROLE, CUOCO_ROLE)
+                
                 .anyRequest().authenticated()
 
                 .and().formLogin()
@@ -73,10 +76,22 @@ import javax.sql.DataSource;
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .clearAuthentication(true).permitAll();
+                .clearAuthentication(true).permitAll()
+                
+                .and()
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler());
+                
         return httpSecurity.build();
     }
     
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        return (request, response, accessDeniedException) -> {
+            response.sendRedirect("/");
+        };
+    }
+
 //    @Bean
 //    protected SecurityFilterChain configure(final HttpSecurity httpSecurity) throws Exception {
 //        httpSecurity
